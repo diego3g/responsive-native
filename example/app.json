@@ -1,0 +1,22 @@
+{
+  "name": "responsive-native-example",
+  "displayName": "ResponsiveNative Example",
+  "expo": {
+    "name": "responsive-native-example",
+    "slug": "responsive-native-example",
+    "description": "Example app for responsive-native",
+    "privacy": "public",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
