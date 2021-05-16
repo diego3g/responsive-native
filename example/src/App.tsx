@@ -1,22 +1,15 @@
 import * as React from 'react';
 
-import { StyleSheet, View } from 'react-native';
 import { ScreenProvider } from 'responsive-native';
 import { Box } from './Box';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
   return (
-    <ScreenProvider>
-      <View style={styles.container}>
+    <SafeAreaProvider>
+      <ScreenProvider>
         <Box />
-      </View>
-    </ScreenProvider>
+      </ScreenProvider>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-});
