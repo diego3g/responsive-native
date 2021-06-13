@@ -11,7 +11,6 @@ import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 export type Breakpoint = {
   size: 'sm' | 'md' | 'lg' | 'xlg';
   maxWidth: number;
-  baseFontSize: number;
 };
 
 export type BreakpointSize = Breakpoint['size'];
@@ -21,19 +20,21 @@ export type ScreenContextData = {
   fontScaleFactor: number;
   pixelRatio: number;
   padding: EdgeInsets;
+  baseFontSize: number;
 };
 
 type ScreenProviderProps = {
   children: ReactNode;
+  baseFontSize?: number;
 };
 
 export const ScreenContext = createContext({} as ScreenContextData);
 
 export const breakpoints: Breakpoint[] = [
-  { size: 'sm', maxWidth: 576, baseFontSize: 16 },
-  { size: 'md', maxWidth: 768, baseFontSize: 16 },
-  { size: 'lg', maxWidth: 992, baseFontSize: 16 },
-  { size: 'xlg', maxWidth: 1200, baseFontSize: 16 },
+  { size: 'sm', maxWidth: 576 },
+  { size: 'md', maxWidth: 768 },
+  { size: 'lg', maxWidth: 992 },
+  { size: 'xlg', maxWidth: 1200 },
 ];
 
 const getBreakpointByScreenWidth = (width: number): Breakpoint => {
@@ -56,7 +57,10 @@ let currentBreakpoint: Breakpoint = getBreakpointByScreenWidth(
   windowDimensions.width
 );
 
-export function ScreenProvider({ children }: ScreenProviderProps) {
+export function ScreenProvider({
+  children,
+  baseFontSize = 16,
+}: ScreenProviderProps) {
   const padding = useSafeAreaInsets();
 
   const [breakpoint, setBreakpoint] = useState(currentBreakpoint);
@@ -106,6 +110,7 @@ export function ScreenProvider({ children }: ScreenProviderProps) {
         pixelRatio,
         padding,
         fontScaleFactor,
+        baseFontSize,
       }}
     >
       {children}
