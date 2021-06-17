@@ -1,12 +1,14 @@
 import React, {
-  createContext,
   ReactNode,
   useCallback,
   useEffect,
+  useMemo,
+  useRef,
   useState,
 } from 'react';
 import { Dimensions, PixelRatio, ScaledSize } from 'react-native';
 import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { createContext } from 'use-context-selector';
 
 export type Breakpoint = {
   size: 'sm' | 'md' | 'lg' | 'xlg';
@@ -38,45 +40,39 @@ export const breakpoints: Breakpoint[] = [
 ];
 
 const getBreakpointByScreenWidth = (width: number): Breakpoint => {
-  const breakpointIndex = breakpoints
-    .slice()
-    .reverse()
-    .findIndex((breakpoint) => width >= breakpoint.maxWidth);
+  const breakpointByScreenWidth = breakpoints.find(
+    (breakpoint) => width <= breakpoint.maxWidth
+  );
 
-  return breakpointIndex > 0
-    ? breakpoints[breakpointIndex + 1]
-    : breakpoints[0];
+  return breakpointByScreenWidth || breakpoints[breakpoints.length - 1];
 };
-
-const pixelRatio = PixelRatio.get();
-
-export let windowDimensions = Dimensions.get('window');
-export let currentFontScaleFactor: number = windowDimensions.fontScale;
-
-let currentBreakpoint: Breakpoint = getBreakpointByScreenWidth(
-  windowDimensions.width
-);
 
 export function ScreenProvider({
   children,
   baseFontSize = 16,
 }: ScreenProviderProps) {
+  let currentBreakpoint = useRef<Breakpoint | null>(null);
   const padding = useSafeAreaInsets();
 
-  const [breakpoint, setBreakpoint] = useState(currentBreakpoint);
-  const [fontScaleFactor, setFontScaleFactor] = useState(
-    windowDimensions.fontScale
-  );
+  const [breakpoint, setBreakpoint] = useState(() => {
+    const { width } = Dimensions.get('window');
+
+    return getBreakpointByScreenWidth(width);
+  });
+
+  const [fontScaleFactor, setFontScaleFactor] = useState(() => {
+    return Dimensions.get('window').fontScale;
+  });
+
+  const pixelRatio = useMemo(() => PixelRatio.get(), []);
 
   const handleScreenResize = useCallback(
     ({ window }: { window: ScaledSize }) => {
-      windowDimensions = window;
-
       const screenBreakpoint = getBreakpointByScreenWidth(
         Math.max(window.width, window.height)
       );
 
-      if (screenBreakpoint !== currentBreakpoint) {
+      if (screenBreakpoint !== currentBreakpoint.current) {
         setBreakpoint(screenBreakpoint);
       }
 
@@ -88,12 +84,8 @@ export function ScreenProvider({
   );
 
   useEffect(() => {
-    currentBreakpoint = breakpoint;
+    currentBreakpoint.current = breakpoint;
   }, [breakpoint]);
-
-  useEffect(() => {
-    currentFontScaleFactor = fontScaleFactor;
-  }, [fontScaleFactor]);
 
   useEffect(() => {
     Dimensions.addEventListener('change', handleScreenResize);
