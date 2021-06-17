@@ -1,8 +1,19 @@
+import { useContextSelector } from 'use-context-selector';
+
+import { ScreenContext } from '../ScreenProvider';
+
 import { rem } from '../utils/rem';
-import { useScreen } from './useScreen';
 
 export function useRem() {
-  const { fontScaleFactor, baseFontSize } = useScreen();
+  const fontScaleFactor = useContextSelector(
+    ScreenContext,
+    (context) => context.fontScaleFactor
+  );
+
+  const baseFontSize = useContextSelector(
+    ScreenContext,
+    (context) => context.baseFontSize
+  );
 
   return (size: number, shouldScale?: boolean) => {
     return rem({

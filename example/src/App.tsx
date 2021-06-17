@@ -7,7 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 export default function App() {
   return (
     <SafeAreaProvider>
-      <ScreenProvider>
+      <ScreenProvider baseFontSize={2}>
         <Box />
       </ScreenProvider>
     </SafeAreaProvider>
