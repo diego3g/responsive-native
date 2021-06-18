@@ -13,5 +13,20 @@ export function useScreen() {
     (context) => context.pixelRatio
   );
 
-  return { padding, pixelRatio };
+  const breakpoint = useContextSelector(
+    ScreenContext,
+    (context) => context.breakpoint
+  );
+
+  const fontScaleFactor = useContextSelector(
+    ScreenContext,
+    (context) => context.fontScaleFactor
+  );
+
+  const baseFontSize = useContextSelector(
+    ScreenContext,
+    (context) => context.baseFontSize
+  );
+
+  return { padding, pixelRatio, breakpoint, fontScaleFactor, baseFontSize };
 }

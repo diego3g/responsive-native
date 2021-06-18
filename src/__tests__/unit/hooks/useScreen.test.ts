@@ -46,4 +46,41 @@ describe('Hooks | useScreen', () => {
 
     expect(result.current.pixelRatio).toBe(10);
   });
+
+  it("should return 'baseFontSize' provided from ScreenProvider prop", () => {
+    const { result } = renderHook(() => useScreen(), {
+      wrapper: WrapperProvider as any,
+      initialProps: { baseFontSize: 3 },
+    });
+
+    expect(result.current.baseFontSize).toBe(3);
+  });
+
+  it("should return 'fontScaleFactor' from react native Dimensions", () => {
+    jest.mock('react-native/Libraries/Utilities/Dimensions', () => ({
+      get: jest.fn().mockReturnValue({ fontScale: 2 }),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+    }));
+
+    const { result } = renderHook(() => useScreen(), {
+      wrapper: WrapperProvider,
+    });
+
+    expect(result.current.fontScaleFactor).toBe(2);
+  });
+
+  it("should return the current 'breakpoint'", () => {
+    jest.mock('react-native/Libraries/Utilities/Dimensions', () => ({
+      get: jest.fn().mockReturnValue({ width: 900 }),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+    }));
+
+    const { result } = renderHook(() => useScreen(), {
+      wrapper: WrapperProvider,
+    });
+
+    expect(result.current.breakpoint.size).toBe('lg');
+  });
 });
