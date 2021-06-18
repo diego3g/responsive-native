@@ -20,7 +20,6 @@
     - [Usage](#usage)
 - [Contributing](#contributing)
   - [Contribution Guidelines](#contribution-guidelines)
-  - [Code of Conduct](#code-of-conduct)
 - [License](#license)
 
 
