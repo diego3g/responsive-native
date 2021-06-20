@@ -1,12 +1,17 @@
+import { useContextSelector } from 'use-context-selector';
+
 import { MediaQuery, validateMediaQuery } from '../utils/validateMediaQuery';
-import { useScreen } from './useScreen';
+import { ScreenContext } from '../ScreenProvider';
 
 export function useMediaQuery({
   minBreakpoint,
   maxBreakpoint,
   platform,
 }: Omit<MediaQuery, 'currentBreakpoint'>): boolean {
-  const { breakpoint } = useScreen();
+  const breakpoint = useContextSelector(
+    ScreenContext,
+    (context) => context.breakpoint
+  );
 
   return validateMediaQuery({
     minBreakpoint,
