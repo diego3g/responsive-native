@@ -7,11 +7,11 @@ export function Box() {
   const rem = useRem();
 
   const text = useBreakpointValue({
-    base: "I'm a device with undefined width :(",
     sm: "I'm a small device",
     md: "I'm a medium device",
     lg: "I'm a large device",
     xlg: "I'm a very large device",
+    base: 'Did not match any breakpoints above',
   });
 
   return (
