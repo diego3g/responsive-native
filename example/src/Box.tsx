@@ -5,6 +5,7 @@ import { useScreen, useRem, useBreakpointValue } from 'responsive-native';
 export function Box() {
   const screen = useScreen();
   const rem = useRem();
+
   const text = useBreakpointValue({
     base: "I'm a device with undefined width :(",
     sm: "I'm a small device",
