@@ -22,20 +22,6 @@
   "types": "lib/typescript/index.d.ts",
   "react-native": "src/index",
   "source": "src/index",
-  "files": [
-    "src",
-    "lib",
-    "android",
-    "ios",
-    "cpp",
-    "responsive-native.podspec",
-    "!lib/typescript/example",
-    "!android/build",
-    "!ios/build",
-    "!**/__tests__",
-    "!**/__fixtures__",
-    "!**/__mocks__"
-  ],
   "scripts": {
     "test": "jest",
     "typescript": "tsc --noEmit",
@@ -61,6 +47,7 @@
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "3.4.0",
     "jest": "27.0.4",
+    "np": "^7.5.0",
     "pod-install": "0.1.23",
     "prettier": "2.3.1",
     "react": "17.0.2",

@@ -1,0 +1,16 @@
+.github
+coverage
+example
+scripts
+src
+.editorconfig
+.gitattributes
+.gitignore
+.npmignore
+.yarnrc
+babel.config.js
+CONTRIBUTING.md
+renovate.json
+tsconfig.build.json
+tsconfig.json
+yarn.lock
