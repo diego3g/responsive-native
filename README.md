@@ -117,6 +117,34 @@ export function MyComponent() {
 }
 ```
 
+### useResponsiveStyles
+
+```tsx
+const responsiveStyles = createResponsiveStyleSheet((rem) => {
+  return {
+    button: {
+      width: rem(4),
+      padding: rem(2),
+      bottom: rem(2),
+    },
+
+    title: {
+      fontSize: rem(2),
+    },
+  };
+});
+
+function Button() {
+  const styles = useResponsiveStyle(responsiveStyles);
+
+  return (
+    <TouchableOpacity onPress={() => {}} style={styles.button}>
+      <Text style={styles.title}>Entrar</Text>
+    </TouchableOpacity>
+  )
+}
+```
+
 ### useScreen
 
 Returns an object with important information about the device screen.

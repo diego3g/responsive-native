@@ -5,5 +5,6 @@ export function responsiveFontSize(
   standardScreenHeight = 680
 ) {
   const heightPercent = (fontSize * getDeviceHeight()) / standardScreenHeight;
+
   return Math.round(heightPercent);
 }
