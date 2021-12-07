@@ -69,7 +69,7 @@ export function ScreenProvider({
   const handleScreenResize = useCallback(
     ({ window }: { window: ScaledSize }) => {
       const screenBreakpoint = getBreakpointByScreenWidth(
-        Math.max(window.width, window.height)
+        Math.min(window.width, window.height)
       );
 
       if (screenBreakpoint !== currentBreakpoint.current) {
