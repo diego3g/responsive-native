@@ -1,6 +1,6 @@
 {
   "name": "responsive-native",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Diego Fernandes <diego.schell.f@gmail.com> (https://github.com/diego3g)",
   "description": "A responsive utility toolkit for React Native",
   "keywords": [
