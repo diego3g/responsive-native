@@ -86,10 +86,10 @@ export function ScreenProvider({
   }, [breakpoint]);
 
   useEffect(() => {
-    Dimensions.addEventListener('change', handleScreenResize);
+    const eventSubscription = Dimensions.addEventListener('change', handleScreenResize);
 
     return () => {
-      Dimensions.removeEventListener('change', handleScreenResize);
+      eventSubscription.remove()
     };
   }, [handleScreenResize]);
 
